@@ -22,7 +22,6 @@ namespace WindowsFormsApp1 {
             //int ans = int.Parse(tbnum1.Text) + int.Parse(tbnum2.Text);
             //tbans.Text = ans.ToString();
             //this.BackColor = Color.Red;
-            //btButton.BackColor = Color.Blue;
 
             int num1 = int.Parse(tbnum1.Text);
             int num2 = int.Parse(tbnum2.Text);
