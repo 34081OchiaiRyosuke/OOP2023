@@ -19,10 +19,15 @@ namespace WindowsFormsApp1 {
         }
 
         private void btButton_Click(object sender, EventArgs e) {
-            int ans = int.Parse(tbnum1.Text) + int.Parse(tbnum2.Text);
-            tbans.Text = ans.ToString();
-            this.BackColor = Color.Red;
-            btButton.BackColor = Color.Blue;
+            //int ans = int.Parse(tbnum1.Text) + int.Parse(tbnum2.Text);
+            //tbans.Text = ans.ToString();
+            //this.BackColor = Color.Red;
+            //btButton.BackColor = Color.Blue;
+
+            int num1 = int.Parse(tbnum1.Text);
+            int num2 = int.Parse(tbnum2.Text);
+            int sum = num1 + num2;
+            tbans.Text = sum.ToString();
         }
 
         private void tbTextArea_TextChanged(object sender, EventArgs e) {
