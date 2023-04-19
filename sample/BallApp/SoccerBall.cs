@@ -16,12 +16,19 @@ namespace BallApp {
         private double moveX = 10;  //移動量
         private double moveY = 10;  //移動量
 
-        //コンストラクタ
-        public SoccerBall() {
-            Image = Image.FromFile(@"pic\soccer_ball.png");
-            posX = 0.0;
-            PosY = 0.0;
+        Random rnd = new Random();
 
+        //コンストラクタ
+        public SoccerBall(double xp, double yp) {
+            Image = Image.FromFile(@"pic\soccer_ball.png");
+            posX = xp;
+            PosY = yp;
+            
+            int rndX = rnd.Next(-15, 15);
+            moveX = (rndX != 0 ? rndX : 1);
+
+            int rndY = rnd.Next(-15, 15);
+            moveY = (rndY != 0 ? rndY : 1);
         }
         //プロパティ
         public double PosX { get => posX; set => posX = value; }
