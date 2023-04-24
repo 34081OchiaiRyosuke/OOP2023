@@ -15,7 +15,7 @@ namespace BallApp {
 
         private List<SoccerBall> balls = new List<SoccerBall>();//ボールインスタンス格納用
         private List<PictureBox> pbs = new List<PictureBox>();  //表示用
-
+        int cnt = 0;
         static void Main(string[] args) {
 
             Application.Run(new Program());
@@ -24,7 +24,7 @@ namespace BallApp {
         public Program() {
             this.Size = new Size(800, 600);
             this.BackColor = Color.LawnGreen;
-            this.Text = "BallGame";
+            this.Text = "ボールの数:" + cnt;
             this.MouseClick += Program_MouseClick;
 
             
@@ -35,6 +35,7 @@ namespace BallApp {
 
         //マウスクリック時のイベントハンドラ
         private void Program_MouseClick(object sender, MouseEventArgs e) {
+            this.Text = "ボールの数:" + (++cnt);
             //ボールインスタンス生成
             soccerball = new SoccerBall(e.X - 25, e.Y - 25);
             pb = new PictureBox();//画像を表示するコントロール
