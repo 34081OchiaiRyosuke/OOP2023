@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BallApp {
-    class SoccerBall : Obj {
+    class TennisBall : Obj {
 
-       
         private static int count;
         public Random rnd = new Random();
-        
+
         public static int Count { get => count; set => count = value; }
 
         //コンストラクタ
-        public SoccerBall(double xp, double yp) :base(xp,yp, @"pic\soccer_ball.png") {
-                      
+        public TennisBall(double xp, double yp) : base(xp, yp, @"pic\tennis_ball.png") {
+
             int rndX = rnd.Next(-15, 15);
             MoveX = (rndX != 0 ? rndX : 1);//乱数で移動量を設定
 
@@ -26,7 +24,6 @@ namespace BallApp {
             Count++;
         }
 
-        //メソッド
         public override void Move() {
 
             PosX += MoveX;
