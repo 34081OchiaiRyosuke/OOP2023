@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace BallApp {
     class SoccerBall : Obj {
-
-       
+               
         private static int count;
         public Random rnd = new Random();
         
