@@ -16,7 +16,7 @@ namespace BallApp {
         }
 
         //メソッド
-        public override void Move() {
+        public override void Move(PictureBox pbBar, PictureBox pbBall) {
 
         }
         public override void Move(Keys direction) {

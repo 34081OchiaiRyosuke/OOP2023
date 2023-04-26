@@ -51,14 +51,13 @@ namespace BallApp {
         //キーが押された時のイベントハンドラ
         private void Program_KeyDown(object sender, KeyEventArgs e) {
             
-            bar.Move(e.KeyCode);
+            bar.Move(e.KeyData);
             pbBar.Location = new Point((int)bar.PosX, (int)bar.PosY);
         }
 
         private PictureBox pb;
         //マウスクリック時のイベントハンドラ
         private void Program_MouseClick(object sender, MouseEventArgs e) {
-
 
             Obj obj;
             pb = new PictureBox();//画像を表示するコントロール
@@ -97,7 +96,7 @@ namespace BallApp {
 
             for (int i = 0; i < balls.Count; i++)
             {
-                balls[i].Move();  //移動
+                balls[i].Move(pbBar, pbs[i]);  //移動
                 pbs[i].Location = new Point((int)balls[i].PosX, (int)balls[i].PosY);//画像の位置
             }
         }

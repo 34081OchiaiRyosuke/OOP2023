@@ -27,12 +27,15 @@ namespace BallApp {
         }
 
         //メソッド
-        public override void Move() {
+        public override void Move(PictureBox pbBar, PictureBox pbBall) {
 
-            PosX += MoveX;
-            PosY += MoveY;
+            Rectangle rBar = new Rectangle(pbBar.Location.X, pbBar.Location.Y, pbBar.Width, pbBar.Height);
 
-            if (PosX > 740 || PosX < 0)
+            Rectangle rBall = new Rectangle(pbBall.Location.X, pbBall.Location.Y, pbBall.Width, pbBall.Height);
+
+            
+
+            if (PosX > 740 || PosX < 0 || rBar.IntersectsWith(rBall))
             {
                 MoveX *= -1;
             }
@@ -40,6 +43,9 @@ namespace BallApp {
             {
                 MoveY *= -1;
             }
+            PosX += MoveX;
+            PosY += MoveY;
+
         }
         public override void Move(Keys direction) {
 
