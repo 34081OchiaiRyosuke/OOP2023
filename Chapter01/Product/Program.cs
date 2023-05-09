@@ -17,19 +17,35 @@ namespace ProductSample {
             //Console.WriteLine("税込み価格" + daifukumoti.GetPriceIncludingTax());
             #endregion
 
-            
-            DateTime date = DateTime.Today;
+            #region 0508演習1
+            //DateTime date = DateTime.Today;
 
             //10日後を求める
-            DateTime daysAfter10 = date.AddDays(10);
+            //DateTime daysAfter10 = date.AddDays(10);
 
             //10日前を求める
-            DateTime daysBefore10 = date.AddDays(-10);
+            //DateTime daysBefore10 = date.AddDays(-10);
 
 
-            Console.WriteLine("今日の日付:" + date);
-            Console.WriteLine("今日の10日後は" + daysAfter10.ToString(@"yyyy\/MM\/dd") + "日です");
-            Console.WriteLine("今日の10日後は" + daysBefore10.ToString(@"yyyy\/MM\/dd") + "日です");
+            //Console.WriteLine("今日の日付:" + date);
+            //Console.WriteLine("今日の10日後は" + date.AddDays(10).Year + "年" + date.AddDays(10).Month + "月" + date.AddDays(10).Day + "日です");
+            //Console.WriteLine("今日の10日後は" + date.AddDays(-10).Year + "年" + date.AddDays(-10).Month + "月" + date.AddDays(-10).Day + "日です");
+            #endregion
+
+            Console.WriteLine("誕生日を入力");
+            Console.Write("西暦:");
+            int seireki = int.Parse(Console.ReadLine());
+            Console.Write("月:");
+            int thuki = int.Parse(Console.ReadLine());
+            Console.Write("日:");
+            int nichi = int.Parse(Console.ReadLine());
+
+            DateTime date1 = new DateTime(seireki, thuki, nichi);
+            DateTime date2 = DateTime.Today;
+
+            TimeSpan kokae = date2 - date1;
+
+            Console.WriteLine("あなたが生まれてから今日まで{0}",kokae.TotalDays + "日");
 
 
         }
