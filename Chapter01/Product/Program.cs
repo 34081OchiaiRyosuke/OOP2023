@@ -32,6 +32,8 @@ namespace ProductSample {
             //Console.WriteLine("今日の10日後は" + date.AddDays(-10).Year + "年" + date.AddDays(-10).Month + "月" + date.AddDays(-10).Day + "日です");
             #endregion
 
+            string[] DayOfWeekJP = { "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" };
+
             Console.WriteLine("誕生日を入力");
             Console.Write("西暦:");
             int seireki = int.Parse(Console.ReadLine());
@@ -43,11 +45,11 @@ namespace ProductSample {
             DateTime date1 = new DateTime(seireki, thuki, nichi);
             DateTime date2 = DateTime.Today;
 
-            TimeSpan kokae = date2 - date1;
+            TimeSpan interval = date2 - date1;
 
-            Console.WriteLine("あなたが生まれてから今日まで{0}",kokae.TotalDays + "日");
+            Console.WriteLine("あなたが生まれてから今日まで{0}",interval.TotalDays + "日");
 
-
+            Console.WriteLine(DayOfWeekJP[(int)date1.DayOfWeek]);
         }
     }
 }
