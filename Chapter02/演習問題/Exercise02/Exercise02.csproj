@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A60D6BF-AED9-4E0F-AD6A-62E74205FA9C}</ProjectGuid>
+    <ProjectGuid>{AAAD1AFF-6627-406C-9A29-527EB59F2CAF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Exercise01</RootNamespace>
-    <AssemblyName>Exercise01</AssemblyName>
+    <RootNamespace>Exercise02</RootNamespace>
+    <AssemblyName>Exercise02</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InchConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Song.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
