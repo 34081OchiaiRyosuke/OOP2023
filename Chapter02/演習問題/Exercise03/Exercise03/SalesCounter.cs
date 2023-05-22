@@ -18,21 +18,30 @@ namespace Exercise03 {
         //店舗別売り上げを求める
         public IDictionary<string, int> GetParStoreSales() {
             var dict = new Dictionary<string, int>();
-            int num = int.Parse(Console.ReadLine());
+            
             foreach (var sale in _sales) {
-                if(num == 1) {
+                
                     if (dict.ContainsKey(sale.ShopName))
                         dict[sale.ShopName] += sale.Amount;//店舗名が既に存在する（売上加算）
                     else {
                         dict[sale.ShopName] = sale.Amount;//店舗名が存在しない(新規格納)
                     }
-                }
+                
+                
+                    
+                
+            }
+            return dict;
+        }
+
+        public IDictionary<string, int> GetParCategorySales() {
+            var dict = new Dictionary<string, int>();
+
+            foreach (var sale in _sales) {
+                if (dict.ContainsKey(sale.ProductCategory))
+                    dict[sale.ProductCategory] += sale.Amount;//商品カテゴリーが既に存在する（売上加算）
                 else {
-                    if (dict.ContainsKey(sale.ProductCategory))
-                        dict[sale.ProductCategory] += sale.Amount;//商品カテゴリーが既に存在する（売上加算）
-                    else {
-                        dict[sale.ProductCategory] = sale.Amount;//商品カテゴリーが存在しない(新規格納)
-                    }
+                    dict[sale.ProductCategory] = sale.Amount;//商品カテゴリーが存在しない(新規格納)
                 }
             }
             return dict;

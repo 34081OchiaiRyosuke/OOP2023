@@ -12,11 +12,21 @@ namespace Exercise03 {
 
             Console.Write("店舗別は１、商品別は２:");
 
+            int num = int.Parse(Console.ReadLine());
+
             var sales = new SalesCounter(@"data\sales.csv");
-            var amountParStore = sales.GetParStoreSales();
-            foreach (var obj in amountParStore) {
+
+            IDictionary<String, int> amountPerStore;
+            if (num == 1) {
+                amountPerStore = sales.GetParStoreSales();
+            }
+            else {
+                amountPerStore = sales.GetParCategorySales();
+            }
+            foreach (var obj in amountPerStore) {
                 Console.WriteLine("{0} {1:C}", obj.Key, obj.Value);
             }
+            
+        }
         }
     }
-}
