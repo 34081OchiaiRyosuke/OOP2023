@@ -38,11 +38,18 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_3(List<string> names) {
-            names.Where(n => n.Contains("o")).ToList().ForEach(Console.WriteLine);
+            names.Where(n => n.Contains("o")).ToArray();
+            foreach (var name in names) {
+                Console.WriteLine(name);
+            }
         }
 
         private static void Exercise2_4(List<string> names) {
-            
+            var selected = names.Where(s => s.StartsWith("B")).Select(s => new { s, s.Length }).ToArray();
+
+            foreach (var item in selected) {
+                Console.WriteLine("{0},{1}", item.s,item.Length);
+            }
         }
     }
 }
