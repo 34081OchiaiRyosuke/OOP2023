@@ -47,10 +47,10 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_5(string text) {
-            var list = text.Split(' ').ToList();
-            var sb = new StringBuilder();
-            foreach(var s in list) {
-                sb.Append(s + ' ');
+            var array = text.Split(' ').ToArray();
+            var sb = new StringBuilder(array[0]);
+            foreach(var s in array.Skip(1)) {
+                sb.Append(' ' + s);
             }
             var texts = sb.ToString();
             Console.WriteLine(texts);
