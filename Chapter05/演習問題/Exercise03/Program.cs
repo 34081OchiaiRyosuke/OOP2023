@@ -25,7 +25,7 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            var spaces = text.Count(s => s == ' ');
+            var spaces = text.Count(c => c == ' ');
             Console.WriteLine("空白数:{0}",spaces);
         }
 
@@ -35,7 +35,7 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_3(string text) {
-            string[] words = text.Split(' ');
+            var words = text.Split(' ');
             Console.WriteLine(words.Length);
         }
 
@@ -47,7 +47,13 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_5(string text) {
-            
+            var list = text.Split(' ').ToList();
+            var sb = new StringBuilder();
+            foreach(var s in list) {
+                sb.Append(s + ' ');
+            }
+            var texts = sb.ToString();
+            Console.WriteLine(texts);
         }
     }
 }
