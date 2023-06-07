@@ -25,7 +25,7 @@ namespace Exercise04 {
             "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886",
             "Novelist=夏目礎石;BestWork=坊ちゃん;Born=1867",
             "Novelist=太宰治;BestWork=人間失格;Born=1909",
-            "Novelist=宮沢賢治;BestWork=銀河鉄道の夜;Born=1896",
+            "Novelist=宮沢賢治;BestWork=銀河鉄道の夜;Born=1896"
             
             };
 #endif
