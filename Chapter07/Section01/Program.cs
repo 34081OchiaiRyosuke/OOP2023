@@ -24,7 +24,7 @@ namespace Section01 {
                 if (ken.ContainsKey(kenmei)) {
                     Console.WriteLine("重複しています、上書きしますか yes/no");
                     var uwagaki = Console.ReadLine();
-                    if(uwagaki == "no") {
+                    if (uwagaki == "no") {
                         Console.Write("県名:");
                         kenmei = Console.ReadLine();
                     }
@@ -34,13 +34,13 @@ namespace Section01 {
             var hyoji = Console.ReadLine();
             if (hyoji == "1") {
                 foreach (var item in ken) {
-                    Console.WriteLine("{0}({1}[{2}])",item.Key, item.Value.City,item.Value.Population);
+                    Console.WriteLine("{0}({1}[{2}])", item.Key, item.Value.City, item.Value.Population);
                 }
             }
             else {
                 Console.Write("県名を入力:");
                 var Kenmei = Console.ReadLine();
-                Console.WriteLine("{0}です。", ken[Kenmei]);
+                Console.WriteLine("【{0}(人口:{1}人)】", ken[Kenmei].City, ken[Kenmei].Population);
             }
         }
     }
