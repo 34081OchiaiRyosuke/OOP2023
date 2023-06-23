@@ -33,7 +33,7 @@ namespace Section01 {
             Console.WriteLine("1:一覧表示,2:県名指定");
             var hyoji = Console.ReadLine();
             if (hyoji == "1") {
-                foreach (var item in ken) {
+                foreach (var item in ken.OrderByDescending(p => p.Value.Population)) {
                     Console.WriteLine("{0}({1}[{2}])", item.Key, item.Value.City, item.Value.Population);
                 }
             }
