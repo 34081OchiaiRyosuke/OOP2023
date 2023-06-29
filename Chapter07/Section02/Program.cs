@@ -19,6 +19,7 @@ namespace Section02 {
                 cityinfo.City = Console.ReadLine();
                 Console.Write("人口を入力");
                 cityinfo.Population = int.Parse(Console.ReadLine());
+
                 if (ken.ContainsKey(kenmei)) {
                     //List<Cityinfo>が存在するためaddで市町村データを追加
                     ken[kenmei].Add(cityinfo);
@@ -45,7 +46,6 @@ namespace Section02 {
                 foreach (var item in ken[Kenmei]) {
                     Console.WriteLine("【{0}(人口:{1}人)】", item.City, item.Population);
                 }
-                
             }
         }
     }
