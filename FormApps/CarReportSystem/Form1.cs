@@ -18,8 +18,21 @@ namespace CarReportSystem {
             dgvCarReports.DataSource = CarReports;
         }
 
+        private void statusLabelDisp(string msg) {
+            tsInfoText.Text = msg;
+        }
+
         //追加ボタンがクリックされた時のイベントハンドラー
         private void btAddReport_Click(object sender, EventArgs e) {
+            statusLabelDisp(""); //ステータスラベルのテキスト非表示
+            if(cbAuthor.Text.Equals("")) {
+                statusLabelDisp("記録者を入力してください");
+                return;
+            }else if(cbCarName.Text.Equals("")) {
+                statusLabelDisp("車名を入力してください");
+                return;
+            }
+            
             var car = new CarReport {
                 Date = dtpDate.Value,
                 Author = cbAuthor.Text,
@@ -29,7 +42,25 @@ namespace CarReportSystem {
                 CarImage = pbCarImage.Image,
             };
             CarReports.Add(car);
+            Clear();
+            btModifyReport.Enabled = true;
+            btDeleteReport.Enabled = true;
+            dgvCarReports.CurrentRow.Selected = false;
         }
+
+        private void Clear() {
+            dtpDate.ResetText();
+            cbAuthor.Text = "";
+            foreach (var item in gbMaker.Controls) {
+                if (((RadioButton)item).Checked) {
+                    ((RadioButton)item).Checked = false;
+                }
+            }
+            cbCarName.Text = "";
+            tbReport.Text = "";
+            pbCarImage.Image = null;
+        }
+
         private CarReport.MakerGroup GetSaletedMaker() {
             foreach (var item in gbMaker.Controls) {
                 if (((RadioButton)item).Checked) {
@@ -94,6 +125,10 @@ namespace CarReportSystem {
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
             CarReports.RemoveAt(dgvCarReports.CurrentRow.Index);
+            if (dgvCarReports.Rows.Count == 0) {
+                btDeleteReport.Enabled = false;
+                btModifyReport.Enabled = false;
+            }
             //DataGridViewSelectedRowCollection src = dgvCarReports.SelectedRows;
             //for (int i = src.Count - 1; i >= 0; i--) {
             //    dgvCarReports.Rows.RemoveAt(src[i].Index);
@@ -114,7 +149,7 @@ namespace CarReportSystem {
         }
 
         private void btModifyReport_Click(object sender, EventArgs e) {
-            if (dgvCarReports.Rows.Count == 0) return;
+            if (dgvCarReports.Rows.Count == 0) btModifyReport.Enabled = false;
 
             CarReports[dgvCarReports.CurrentRow.Index].Date = dtpDate.Value;
             CarReports[dgvCarReports.CurrentRow.Index].Author = cbAuthor.Text;
@@ -122,13 +157,22 @@ namespace CarReportSystem {
             CarReports[dgvCarReports.CurrentRow.Index].CarName = cbCarName.Text;
             CarReports[dgvCarReports.CurrentRow.Index].Report = tbReport.Text;
 
-            dgvCarReports.Refresh();
+            dgvCarReports.Refresh();//一覧更新
             //dgvCarReports.CurrentRow.Cells[0].Value = dtpDate.Value;
             //dgvCarReports.CurrentRow.Cells[1].Value = cbAuthor.Text;
             //dgvCarReports.CurrentRow.Cells[2].Value = GetSaletedMaker();
             //dgvCarReports.CurrentRow.Cells[3].Value = cbCarName.Text;
             //dgvCarReports.CurrentRow.Cells[4].Value = tbReport.Text;
             //dgvCarReports.CurrentRow.Cells[5].Value = pbCarImage.Image;
+        }
+
+        private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
+            var vf = new VersionForm();
+            vf.ShowDialog();  //モーダルダイヤログとして表示
         }
     }
 }
