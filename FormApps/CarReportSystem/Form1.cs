@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         //管理用データ
         BindingList<CarReport> CarReports = new BindingList<CarReport>();
+        private uint mode;
+
+        //設定情報保存用オブジェクト
+        Settings settings = new Settings();
 
         public Form1() {
             InitializeComponent();
@@ -139,9 +145,23 @@ namespace CarReportSystem {
         private void Form1_Load(object sender, EventArgs e) {
             dgvCarReports.Columns[5].Visible = false;  //画像項目非表示
             statusLabelDisp(""); //ステータスラベルのテキスト非表示
+
+            using (var reader = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                settings = serializer.Deserialize(reader) as Settings;
+                BackColor = Color.FromArgb(settings.MainFormColor);
+            }
+            
+
+            tssTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
+            tmTimeDisp.Start();
+        }
+        private void tmTimeDisp_Tick(object sender, EventArgs e) {
+            tssTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
         }
 
         private void dgvCarReports_Click(object sender, EventArgs e) {
+            if (dgvCarReports.RowCount == 0) return;
             dtpDate.Value = (DateTime)dgvCarReports.CurrentRow.Cells[0].Value;
             cbAuthor.Text = dgvCarReports.CurrentRow.Cells[1].Value.ToString();
             setSelectedMaker((CarReport.MakerGroup)dgvCarReports.CurrentRow.Cells[2].Value);
@@ -187,7 +207,7 @@ namespace CarReportSystem {
 
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
             var vf = new VersionForm();
-            vf.ShowDialog();  //モーダルダイヤログとして表示
+            vf.ShowDialog();  //モーダルダイアログとして表示
         }
 
         private void btImageDelete_Click(object sender, EventArgs e) {
@@ -195,8 +215,30 @@ namespace CarReportSystem {
         }
 
         private void カラーToolStripMenuItem_Click(object sender, EventArgs e) {
-            cdColor.ShowDialog();
-            this.BackColor = cdColor.Color;
+            if(cdColor.ShowDialog() == DialogResult.OK) {
+                BackColor = cdColor.Color;
+                settings.MainFormColor = cdColor.Color.ToArgb();
+            }
+            //cdColor.ShowDialog();
+            //this.BackColor = cdColor.Color;
+        }
+
+        private void btScaleChange_Click(object sender, EventArgs e) {
+            mode = mode < 4 ? ((mode == 1) ? 3 : ++mode) : 0; //AutoSize(2)を除外
+            pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
+        }
+
+        private void tmTimeDisp_Tick_1(object sender, EventArgs e) {
+            tssTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+
+            //設定ファイルのシリアル化
+            using(var writer = XmlWriter.Create("settings.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
+            }
         }
     }
 }

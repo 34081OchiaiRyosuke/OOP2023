@@ -89,6 +89,7 @@ namespace CalendarApp {
             this.tbTimeNow.Name = "tbTimeNow";
             this.tbTimeNow.Size = new System.Drawing.Size(308, 50);
             this.tbTimeNow.TabIndex = 13;
+            this.tbTimeNow.TextChanged += new System.EventHandler(this.tbTimeNow_TextChanged);
             // 
             // label2
             // 
@@ -103,6 +104,7 @@ namespace CalendarApp {
             // tmTimeDisp
             // 
             this.tmTimeDisp.Interval = 1000;
+            this.tmTimeDisp.Tick += new System.EventHandler(this.tmTimeDisp_Tick_1);
             // 
             // Form1
             // 

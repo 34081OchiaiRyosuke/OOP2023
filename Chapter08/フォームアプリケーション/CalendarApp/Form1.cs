@@ -46,6 +46,12 @@ namespace CalendarApp {
             tbTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
         }
 
-        
+        private void tbTimeNow_TextChanged(object sender, EventArgs e) {
+
+        }
+
+        private void tmTimeDisp_Tick_1(object sender, EventArgs e) {
+            tbTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
+        }
     }
 }
