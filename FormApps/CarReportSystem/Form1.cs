@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -65,6 +67,16 @@ namespace CarReportSystem {
             cbCarName.Text = "";
             tbReport.Text = "";
             pbCarImage.Image = null;
+        }
+
+        private void setCbAuther(string auther) {
+            if (!cbAuthor.Items.Contains(auther)) {
+                cbAuthor.Items.Add(auther);
+            }
+        }
+
+        private void setCbCarName(string auther) {
+
         }
 
         private CarReport.MakerGroup GetSaletedMaker() {
@@ -146,16 +158,19 @@ namespace CarReportSystem {
         private void Form1_Load(object sender, EventArgs e) {
             dgvCarReports.Columns[5].Visible = false;  //画像項目非表示
             statusLabelDisp(""); //ステータスラベルのテキスト非表示
-
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                settings = serializer.Deserialize(reader) as Settings;
-                BackColor = Color.FromArgb(settings.MainFormColor);
-            }
-            
-
             tssTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
             tmTimeDisp.Start();
+
+            try {
+                using (var reader = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    settings = serializer.Deserialize(reader) as Settings;
+                    BackColor = Color.FromArgb(settings.MainFormColor);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void tmTimeDisp_Tick(object sender, EventArgs e) {
             tssTimeNow.Text = DateTime.Now.ToString("yyyy年MM月dd日HH時mm分ss秒");
@@ -244,15 +259,39 @@ namespace CarReportSystem {
 
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e) {
             if(sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
+                try {
 
-
-
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+            }     //バイナリ形式でシリアル化
+                var bf = new BinaryFormatter();
+                using (FileStream fs = File.Open(sfdCarRepoSave.FileName, FileMode.Create)) {
+                    bf.Serialize(fs, CarReports);
+                }
             }
+            
         }
 
         private void 開くOToolStripMenuItem_Click(object sender, EventArgs e) {
             if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
+                try {
+                    //逆シリアル化でバイナリ形式を取り込む
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open, FileAccess.Read)) {
+                        CarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvCarReports.DataSource = null;
+                        dgvCarReports.DataSource = CarReports;
 
+                        foreach (var carReport in CarReports) {
+                            setCbAuther(carReport.Author);
+                            setCbCarName(carReport.CarName);
+                        }
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
 
 
             }
