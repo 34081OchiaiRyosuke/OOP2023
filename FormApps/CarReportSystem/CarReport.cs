@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
-    public class CarReport {
+    [Serializable]
+    public class CarReport { 
         [System.ComponentModel.DisplayName("日付")]
         public DateTime Date { get; set; }　　//日付
         [System.ComponentModel.DisplayName("記録者")]
