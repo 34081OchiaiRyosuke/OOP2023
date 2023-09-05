@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace CarReportSystem {
     public class Settings {
+        private static Settings instance;
+
         public int MainFormColor { get; set; }
 
+
+        private Settings() { }
+
+        static public Settings getInstance() { 
+            if(instance == null) {
+                instance = new Settings();
+            }
+            return instance;
+        }
     }
 }
