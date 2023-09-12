@@ -340,5 +340,13 @@ namespace CarReportSystem {
         private void btCarNameSearch_Click(object sender, EventArgs e) {
             carReportTableTableAdapter.FillByCarName(this.infosys202309DataSet.CarReportTable, tbCarNamerSearch.Text);
         }
+
+        private void btDateSearch_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByBetweenDate(this.infosys202309DataSet.CarReportTable, dtpDateSearchS.Text, dtpDateSearchE.Text);
+        }
+
+        private void btReset_Click(object sender, EventArgs e) {
+            
+        }
     }
 }
