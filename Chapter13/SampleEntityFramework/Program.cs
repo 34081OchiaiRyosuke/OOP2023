@@ -10,6 +10,27 @@ using System.Threading.Tasks;
 namespace SampleEntityFramework {
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine("# 1.1");
+            //Exercise1_1();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.2");
+            Exercise1_2();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.3");
+            Exercise1_3();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.4");
+            Exercise1_4();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.5");
+            Exercise1_5();
+
+            Console.ReadLine();
+
 
             //AddAuthors();
             //AddBooks();
@@ -28,12 +49,89 @@ namespace SampleEntityFramework {
                 var count = db.Books.Count();
                 Console.WriteLine(count);
             }
-
             Console.ReadLine();
             Console.WriteLine();
+        }
 
+        private static void Exercise1_1() {
+            using (var db = new BooksDbContext()) {
+                var author1 = new Author {
+                    Birthday = new DateTime(1888, 12, 26),
+                    Gender = "M",
+                    Name = "菊池寛",
+                };
+                db.Author.Add(author1);
+                db.SaveChanges();
+            }
+
+            using (var db = new BooksDbContext()) {
+                var author2 = new Author {
+                    Birthday = new DateTime(1899, 6, 14),
+                    Gender = "M",
+                    Name = "川端康成",
+                };
+                db.Author.Add(author2);
+                db.SaveChanges();
+            }
+
+
+            using (var db = new BooksDbContext()) {
+                var author3 = db.Author.Single(a => a.Name == "夏目漱石");
+                var book1 = new Book {
+                    Title = "こころ",
+                    PublishedYear = 1991,
+                    Author = author3,
+                };
+                db.Books.Add(book1);
+                var author4 = db.Author.Single(a => a.Name == "川端康成");
+                var book2 = new Book {
+                    Title = "伊豆の踊子",
+                    PublishedYear = 2003,
+                    Author = author4,
+                };
+                db.Books.Add(book2);
+                var author5 = db.Author.Single(a => a.Name == "菊池寛");
+                var book3 = new Book {
+                    Title = "真珠夫人",
+                    PublishedYear = 2002,
+                    Author = author5,
+                };
+                db.Books.Add(book3);
+                var author6 = db.Author.Single(a => a.Name == "宮沢賢治");
+                var book4 = new Book {
+                    Title = "注文の多い料理店",
+                    PublishedYear = 2000,
+                    Author = author6,
+                };
+                db.Books.Add(book4);
+                ;
+                db.SaveChanges();
+            }
+        }
+        private static void Exercise1_2() {
+            using (var db = new BooksDbContext()) {
+                foreach (var book in db.Books.ToList()) {
+                    Console.WriteLine($"{book.Title} {book.Author.Name} {book.PublishedYear}");
+                }
+            }
+         }
+
+        private static void Exercise1_3() {
+            using (var db = new BooksDbContext()) {
+                foreach (var book in db.Books.Where(book => book.Title.Length == db.Books.Max(b => b.Title.Length))) {
+                    Console.WriteLine(book.Title);
+                }
+            }
+        }
+
+        private static void Exercise1_4() {
             
         }
+
+        private static void Exercise1_5() {
+            
+        }
+
         // List 13-5
         static void InsertBooks() {
             using (var db = new BooksDbContext()) {
@@ -60,7 +158,6 @@ namespace SampleEntityFramework {
                 db.SaveChanges();    //データベース更新
             }
         }
-
         //List 13-7
         static IEnumerable<Book> GetBooks() {
             using(var db = new BooksDbContext()){
@@ -129,7 +226,6 @@ namespace SampleEntityFramework {
                 db.SaveChanges();
             }
         }
-
         // List 13-12
         private static void DeleteBook() {
             using (var db = new BooksDbContext()) {
