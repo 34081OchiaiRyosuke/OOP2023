@@ -21,19 +21,29 @@ namespace RssReader {
         }
 
         private void btGet_Click(object sender, EventArgs e) {
-            using (var wc = new WebClient()) {
-                var url = wc.OpenRead(tbUrl.Text);
-                XDocument xdoc = XDocument.Load(url);
+            try {
+                if (tbUrl.Text == "")
+                    return;
 
-                itemdatas = xdoc.Root.Descendants("item")
-                                        .Select(x => new ItemData {
-                                            Title = (string)x.Element("title"),
-                                            Link = (string)x.Element("link"),
-                                        }).ToList();
+                lbRssTitle.Items.Clear();
 
-                foreach (var node in itemdatas) {
-                    lbRssTitle.Items.Add(node.Title);
+                using (var wc = new WebClient()) {
+                    var url = wc.OpenRead(tbUrl.Text);
+                    XDocument xdoc = XDocument.Load(url);
+
+                    itemdatas = xdoc.Root.Descendants("item")
+                                            .Select(x => new ItemData {
+                                                Title = (string)x.Element("title"),
+                                                Link = (string)x.Element("link"),
+                                            }).ToList();
+
+                    foreach (var node in itemdatas) {
+                        lbRssTitle.Items.Add(node.Title);
+                    }
                 }
+            }
+            catch (ArgumentException) {
+                return;
             }
         }
 
