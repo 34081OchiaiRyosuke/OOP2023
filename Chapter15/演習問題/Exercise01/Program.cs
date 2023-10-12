@@ -69,12 +69,26 @@ namespace Exercise01 {
                                .Distinct();
             foreach (var name in names) {
                 Console.WriteLine(name);
-            }
-                                       
+            }                        
         }       
 
         private static void Exercise1_6() {
-            
+            var books = Library.Books
+                                 .Join(Library.Categories, book => book.CategoryId, category => category.Id, (book, category) => new {
+                                     book.PublishedYear,
+                                     book.Price,
+                                     book.Title,
+                                     CategoryName = category.Name,
+                                 })
+                                 .GroupBy(x => x.CategoryName)
+                                 .OrderBy(x => x.Key);
+
+            foreach (var group in books) {
+                Console.WriteLine("#{0}", group.Key);
+                foreach (var item in group) {
+                    Console.WriteLine(" {0} ", item.Title);
+                }
+            }
         }
 
         private static void Exercise1_7() {
