@@ -26,22 +26,52 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2() {
-            foreach (var maxbook in Library.Books.Where(b => b.Price == ( Library.Books. Max(m => m.Price)))) {
+            foreach (var maxbook in Library.Books.Where(b => b.Price ==  Library.Books.Max(m => m.Price))) {
                 Console.WriteLine(maxbook);
             } 
         }
 
         private static void Exercise1_3() {
-            //var category = Library.Books.Count
+            var group = Library.Books.GroupBy(b => b.PublishedYear).OrderBy(g => g.Key);
+            foreach (var g in group) {
+                Console.WriteLine("{0}年 {1}冊",g.Key,g.Count());
+            }
         }
 
         private static void Exercise1_4() {
-            
+            var books = Library.Books
+                                 .Join(Library.Categories, book =>book.CategoryId, category => category.Id, (book, category) => new {
+                                     book.PublishedYear,
+                                     book.Price,
+                                     book.Title,
+                                     CategoryName = category.Name,
+                                 })
+                                 .OrderByDescending(x => x.PublishedYear)
+                                 .ThenByDescending(x => x.Price);
+
+            foreach (var item in books) {
+                Console.WriteLine("{0}年 {1}円 {2} ({3})",
+                                    item.PublishedYear,
+                                    item.Price,
+                                    item.Title,
+                                    item.CategoryName
+                                    );
+            }
         }
 
         private static void Exercise1_5() {
-            
-        }
+            var names = Library.Books
+                               .Where(b => b.PublishedYear == 2016)
+                               .Join(Library.Categories,
+                                        book => book.CategoryId,
+                                        category => category.Id,
+                                        (book, category) => category.Name)
+                               .Distinct();
+            foreach (var name in names) {
+                Console.WriteLine(name);
+            }
+                                       
+        }       
 
         private static void Exercise1_6() {
             
