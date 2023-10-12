@@ -71,7 +71,7 @@ namespace RssReader {
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(1033, 258);
+            this.radioButton1.Location = new System.Drawing.Point(1061, 284);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(88, 16);
             this.radioButton1.TabIndex = 4;
