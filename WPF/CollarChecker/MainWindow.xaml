@@ -42,7 +42,7 @@
             <Slider x:Name="bSlider" Grid.Row="2" Grid.Column="1" Margin="0,0,1,0" TickPlacement="TopLeft" IsSnapToTickEnabled="True" ValueChanged="rgbSilder_ValueChanged" Maximum="255"/>
             <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="3" Margin="2,12,10,24" 
                      Text="{Binding ElementName=bSlider,Path=Value ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <ComboBox ItemsSource="{Binding}" SelectedValue="{Binding Color}" Grid.Row="3" Grid.Column="1" Margin="0,10,1,27" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox x:Name="cbColor" ItemsSource="{Binding}" SelectedValue="{Binding Color}" Grid.Row="3" Grid.Column="1" Margin="0,10,1,27" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -59,7 +59,7 @@
         </Grid>
         <Grid RenderTransformOrigin="0.391,0.502" >
             <Button x:Name="stockButton" Content="STOCK" Margin="398,10,10,214" Click="stockButton_Click"/>
-            <ListBox x:Name="stockList" Margin="398,77,16,10" SelectionChanged="stockList_SelectionChanged"/>
+            <ListBox x:Name="stockList" Margin="398,77,16,10" MouseDoubleClick="stockList_MouseDoubleClick"/>
         </Grid>
     </Grid>
 </Window>
